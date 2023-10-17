@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  margin: 0 auto;
-  padding: 0 30px;
+import { FaFilm } from 'react-icons/fa';
 
-  @media screen and (max-width: 768px) {
-    padding: 0 8px;
-  }
-`;
+import placeholder from '../images/placeholder.png';
 
 export const List = styled.ul`
   list-style: none;
@@ -20,30 +15,16 @@ export const Item = styled.li`
   padding: 5px 12px;
   border-bottom: 1px solid transparent;
   position: relative;
-
-  &::before {
-    content: '';
-    background-image: url(${filmTape});
-    background-size: cover;
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    left: -25px;
-  }
-
-  @media screen and (max-width: 768px) {
-    font-size: 0.8rem;
-  }
 `;
 
-export const LinkToDetails = styled(Link)`
+export const LinkDetails = styled(Link)`
   color: #000;
   text-decoration: none;
   margin: 1px;
 
   &:hover,
   &:focus {
-    color: #ff3cac;
+    color: #064e8a;
   }
 
   @media screen and (min-width: 768px) {
@@ -53,7 +34,7 @@ export const LinkToDetails = styled(Link)`
       background-image: ${props =>
         props.cover
           ? `url('https://image.tmdb.org/t/p/w500/${props.cover}')`
-          : `url(${defaultPoster})`};
+          : `url(${placeholder})`};
 
       background-size: cover;
       width: 160px;
@@ -68,4 +49,14 @@ export const LinkToDetails = styled(Link)`
       z-index: 1;
     }
   }
+`;
+
+export const LogoIcon = styled(FaFilm)`
+  width: 20px;
+  height: 20px;
+  position: relative;
+  right: 6px;
+  top: 5px;
+  z-index: 1;
+  opacity: 0.7;
 `;

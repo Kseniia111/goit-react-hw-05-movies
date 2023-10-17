@@ -1,21 +1,45 @@
-import { useParams, useLocation, Navigate, Outlet } from 'react-router-dom';
-import { useState, useRef, Suspense } from 'react';
-import { useRequest } from '../services/useRequest';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { Loader } from '../components/Loader/Loader';
-import Button from '../components/Button/Button';
-import defaultPoster from 'images/default_poster.jpg';
+import React, { useEffect, useState, useRef, Suspense } from 'react';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
+
+import { fetchMovieDetails } from 'services/SearchApi';
+
+import noimage from 'components/images/noimage.svg';
+import Button from 'components/Button/Button';
+import { Loader } from 'components/Loader/Loader';
+
+import {
+  Container,
+  Description,
+  ImageContainer,
+  Image,
+  ProdCompany,
+} from './MoviesDetails.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const { data, error } = useRequest(`/movie/${movieId}`);
+  const [movieDetails, setMovieDetails] = useState(null);
   const location = useLocation();
   const backLinkHref = useRef(location.state?.from || '/');
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const genresList = data?.genres?.map(genre => genre.name).join(', ');
 
-  const productionCompaniesList = data?.production_companies?.map(
+  useEffect(() => {
+    // Отримання деталів фільму з API
+    const movieDetails = async () => {
+      try {
+        const movie = await fetchMovieDetails(movieId);
+        setMovieDetails(movie);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    movieDetails();
+  }, [movieId]);
+
+  if (!movieDetails) {
+    return <Loader />;
+  }
+
+  const productionCompaniesList = movieDetails.production_companies?.map(
     ({ id, logo_path, name }) =>
       logo_path && (
         <li key={id}>
@@ -23,99 +47,70 @@ const MovieDetails = () => {
             <img
               src={`https://image.tmdb.org/t/p/w500${logo_path}`}
               alt={name}
-              style={{ maxHeight: 50, maxWidth: 200, marginRight: 30 }}
+              style={{
+                maxHeight: 50,
+                maxWidth: 200,
+                marginRight: 30,
+                marginTop: 10,
+              }}
             />
           )}
         </li>
       )
   );
 
+  // Calculate rounded popularity percentage
+  const roundedPopularity = Math.round(movieDetails.vote_average * 10);
+
   return (
-    <>
-      {error && <Navigate to="/" />}
-      {!data && !error ? (
-        <Loader />
-      ) : (
-        data && (
-          <Wrapper backdrop={data.backdrop_path}>
-            <BackButton to={backLinkHref.current}>
-              <Button label="Go back" icon="left_arrow" />
-            </BackButton>
-
-            <MovieCard>
-              <SkeletonTheme baseColor="#dddddd" highlightColor="#a5a5a5">
-                {!isImageLoaded && <Skeleton width={333} height={500} />}
-              </SkeletonTheme>
-              <Poster
-                src={
-                  data.poster_path === null
-                    ? defaultPoster
-                    : `https://image.tmdb.org/t/p/w500${data.poster_path}`
-                }
-                alt={data.title}
-                onLoad={() => setIsImageLoaded(true)}
-                height={isImageLoaded ? 500 : 0}
-              />
-
-              <Info>
-                <Title>
-                  {data.title}
-                  {data.release_date && (
-                    <span> ({data.release_date.slice(0, 4)})</span>
-                  )}
-                </Title>
-                <Score>
-                  {data.vote_count > 0 ? (
-                    <>
-                      User score: {Math.round(data.vote_average * 10)}%&ensp;
-                      <TextData>
-                        ({data.vote_count}{' '}
-                        {data.vote_count === 1 ? 'vote' : 'votes'})
-                      </TextData>
-                    </>
-                  ) : (
-                    'No votes yet'
-                  )}
-                </Score>
-                <Header>Overview</Header>
-                <TextData>
-                  {data.overview !== ''
-                    ? data.overview
-                    : 'No overview provided'}
-                </TextData>
-                <Header>Genres</Header>
-                <TextData>
-                  {genresList !== '' ? genresList : 'No genres provided'}
-                </TextData>
-                {productionCompaniesList[0] !== null &&
-                  productionCompaniesList.length > 0 && (
-                    <>
-                      <Header>Production companies</Header>
-                      <ProuctionCompanies>
-                        {productionCompaniesList}
-                      </ProuctionCompanies>
-                    </>
-                  )}
-              </Info>
-            </MovieCard>
-
-            <ExtraButtonsList>
-              <ExtraButton to="cast">
-                <Button label="Cast" icon="cast" />
-              </ExtraButton>
-
-              <ExtraButton to="reviews">
-                <Button label="Reviews" icon="review" />
-              </ExtraButton>
-            </ExtraButtonsList>
-
-            <Suspense fallback={<Loader />}>
-              <Outlet />
-            </Suspense>
-          </Wrapper>
-        )
-      )}
-    </>
+    <div>
+      <Link to={backLinkHref.current}>
+        <Button text="⬅️ Go back" />
+      </Link>
+      <Container backdrop={movieDetails.backdrop_path}>
+        <Description>
+          <h1>{movieDetails.title}</h1>
+          <h4>User score: {roundedPopularity}%</h4>
+          <h2>Overview</h2>
+          <p>{movieDetails.overview}</p>
+          <h2>Genres</h2>
+          <p>
+            {movieDetails.genres.map(genre => (
+              <span key={genre.id}> {genre.name}</span>
+            ))}
+          </p>
+          {productionCompaniesList[0] !== null &&
+            productionCompaniesList.length > 0 && (
+              <>
+                <h2>Production companies</h2>
+                <ProdCompany>{productionCompaniesList}</ProdCompany>
+              </>
+            )}
+        </Description>
+        <ImageContainer>
+          <Image
+            src={
+              movieDetails.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`
+                : `${noimage}`
+            }
+            alt={movieDetails.title}
+          />
+        </ImageContainer>
+      </Container>
+      <hr />
+      <h3>Additional information</h3>
+      <Link to="cast">
+        <Button text="Cast" />
+      </Link>
+      <Link to="reviews">
+        <Button text="Reviews" />
+      </Link>
+      <hr />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
+    </div>
   );
 };
 
