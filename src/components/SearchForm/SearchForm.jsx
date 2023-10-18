@@ -1,6 +1,6 @@
-import { DebounceInput } from 'react-debounce-input';
+//import { DebounceInput } from 'react-debounce-input';
 
-import { Form, Icon } from './SearchForm.styled';
+import { Form, InputSearch } from './SearchForm.styled';
 
 export const SearchForm = ({ value, onChange }) => {
   const handleSubmit = e => {
@@ -10,14 +10,13 @@ export const SearchForm = ({ value, onChange }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <h2>Movie Search</h2>
-      <DebounceInput
+      <InputSearch
         type="text"
-        debounceTimeout={500}
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder="type here"
       />
-      <Icon />
+      {/* <Icon /> */}
     </Form>
   );
 };

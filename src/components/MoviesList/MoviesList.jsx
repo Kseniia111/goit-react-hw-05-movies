@@ -1,25 +1,25 @@
 import { useLocation } from 'react-router-dom';
-import { Wrapper, List, Item, LinkToDetails } from './MoviesList.styled';
+import { List, Item } from './MoviesList.styled';
 
 const MoviesList = ({ movies }) => {
   const location = useLocation();
 
   return (
-    <Wrapper>
+    <>
       <List>
         {movies.map(movie => (
           <Item key={movie.id}>
-            <LinkToDetails
+            <div
               to={`/movies/${movie.id}`}
               state={{ from: location }}
               cover={movie.poster_path}
             >
               {movie.title}
-            </LinkToDetails>
+            </div>
           </Item>
         ))}
       </List>
-    </Wrapper>
+    </>
   );
 };
 

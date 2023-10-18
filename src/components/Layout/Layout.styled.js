@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { SiThemoviedatabase } from 'react-icons/si';
+//import { SiThemoviedatabase } from 'react-icons/si';
 
 import background from '../images/background.jpeg';
 
@@ -77,12 +77,12 @@ export const Text = styled.p`
   margin: 0;
 `;
 
-export const IconLogo = styled(SiThemoviedatabase)`
-  width: 30px;
-  height: 30px;
-  position: relative;
-  right: 6px;
-  top: 5px;
-  z-index: 1;
-  opacity: 0.7;
-`;
+// export const IconLogo = styled(SiThemoviedatabase)`
+//   width: 30px;
+//   height: 30px;
+//   position: relative;
+//   right: 6px;
+//   top: 5px;
+//   z-index: 1;
+//   opacity: 0.7;
+// `;

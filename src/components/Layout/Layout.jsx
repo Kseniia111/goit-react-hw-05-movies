@@ -9,7 +9,7 @@ import {
   Links,
   Footer,
   Text,
-  IconLogo,
+  // IconLogo,
 } from './Layout.styled';
 
 const Layout = () => {
@@ -18,7 +18,7 @@ const Layout = () => {
       <Container>
         <Header>
           <Logo>
-            <IconLogo />
+            {/* <IconLogo /> */}
             TMDB
           </Logo>
           <nav>

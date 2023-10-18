@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FcSearch } from 'react-icons/fc';
+//import { FcSearch } from 'react-icons/fc';
 
 export const Form = styled.form`
   display: flex;
@@ -18,12 +18,29 @@ export const Form = styled.form`
     outline: none;
   }
 `;
+export const InputSearch = styled.input`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
 
-export const Icon = styled(FcSearch)`
-  width: 25px;
-  height: 25px;
-  position: relative;
-  right: 56px;
-  z-index: 1;
-  opacity: 0.7;
+  padding: 15px 16px;
+
+  color: rgba(255, 255, 255, 0.2);
+
+  background: #2b2b2b;
+  border-radius: 10px;
+
+  :active,
+  :focus,
+  :hover {
+    color: white;
+  }
 `;
+// export const Icon = styled(FcSearch)`
+//   width: 25px;
+//   height: 25px;
+//   position: relative;
+//   right: 56px;
+//   z-index: 1;
+//   opacity: 0.7;
+// `;
