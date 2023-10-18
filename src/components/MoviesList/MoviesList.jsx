@@ -21,6 +21,22 @@ const MoviesList = ({ movies }) => {
       </List>
     </>
   );
+  // return (
+  //   <List>
+  //     {movies.map(({ id, title, poster_path }) => {
+  //       const imgPoster = searchImages(poster_path);
+  //       console.log(imgPoster);
+  //       return (
+  //         <div state={{ from: location }} to={`/movies/${id}`} key={id}>
+  //           <Item>
+  //             <img src={imgPoster} alt={title} />
+  //             <p>{title}</p>
+  //           </Item>
+  //         </div>
+  //       );
+  //     })}
+  //   </List>
+  // );
 };
 
 export default MoviesList;
