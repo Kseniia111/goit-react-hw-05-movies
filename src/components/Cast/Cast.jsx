@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieCredits } from 'services/SearchApi';
+import { fetchMovieCast } from 'services/SearchApi';
 import { BASE_POSTER_URL, PLACEHOLDER } from 'services/constants';
 import { Item, List } from './Cast.styled';
 
@@ -12,7 +12,7 @@ const Cast = () => {
   useEffect(() => {
     const fetchCast = async () => {
       try {
-        const cast = await fetchMovieCredits(movieId);
+        const cast = await fetchMovieCast(movieId);
         setCast(cast);
       } catch (e) {
         console.log(e);
