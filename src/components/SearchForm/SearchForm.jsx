@@ -1,22 +1,32 @@
-//import { DebounceInput } from 'react-debounce-input';
+import { useState } from 'react';
+import { InputSearch, ButtonSearch } from './SearchForm.styled';
+const Form = ({ setSearchParams }) => {
+  const [query, setQuery] = useState('');
 
-import { Form, InputSearch } from './SearchForm.styled';
-
-export const SearchForm = ({ value, onChange }) => {
   const handleSubmit = e => {
     e.preventDefault();
+
+    setSearchParams({ query });
+  };
+
+  const handleSearchParams = ({ target: { value } }) => {
+    setQuery(value);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <h2>Movie Search</h2>
+    <form onSubmit={handleSubmit}>
       <InputSearch
         type="text"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        placeholder="type here"
+        placeholder="Name movie"
+        autoFocus
+        value={query}
+        onChange={handleSearchParams}
       />
-      {/* <Icon /> */}
-    </Form>
+      <ButtonSearch type="submit" disabled={!query}>
+        Search
+      </ButtonSearch>
+    </form>
   );
 };
+
+export default Form;

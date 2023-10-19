@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-// import { FaFilm } from 'react-icons/fa';
-
 import placeholder from '../images/placeholder.png';
 
 export const List = styled.ul`
@@ -50,13 +48,3 @@ export const LinkDetails = styled(Link)`
     }
   }
 `;
-
-// export const LogoIcon = styled(FaFilm)`
-//   width: 20px;
-//   height: 20px;
-//   position: relative;
-//   right: 6px;
-//   top: 5px;
-//   z-index: 1;
-//   opacity: 0.7;
-// `;

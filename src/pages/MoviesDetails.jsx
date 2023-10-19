@@ -22,7 +22,6 @@ const MovieDetails = () => {
   const backLinkHref = useRef(location.state?.from || '/');
 
   useEffect(() => {
-    // Отримання деталів фільму з API
     const movieDetails = async () => {
       try {
         const movie = await fetchMovieDetails(movieId);
@@ -59,13 +58,12 @@ const MovieDetails = () => {
       )
   );
 
-  // Calculate rounded popularity percentage
   const roundedPopularity = Math.round(movieDetails.vote_average * 10);
 
   return (
     <div>
       <Link to={backLinkHref.current}>
-        <Button text="⬅️ Go back" />
+        <Button text="Go back" />
       </Link>
       <Container backdrop={movieDetails.backdrop_path}>
         <Description>

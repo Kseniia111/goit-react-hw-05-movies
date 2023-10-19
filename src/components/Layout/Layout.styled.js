@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-//import { SiThemoviedatabase } from 'react-icons/si';
 
-import background from '../images/background.jpeg';
-
+//import background from '../images/background.jpeg';
+import background from '../images/background.jpg';
 export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -66,23 +65,3 @@ export const Links = styled(NavLink)`
     background-color: #064e8a;
   }
 `;
-
-export const Footer = styled.footer`
-  /* border-top: 1px solid #ececec; */
-`;
-
-export const Text = styled.p`
-  text-align: center;
-  padding: 20px 0;
-  margin: 0;
-`;
-
-// export const IconLogo = styled(SiThemoviedatabase)`
-//   width: 30px;
-//   height: 30px;
-//   position: relative;
-//   right: 6px;
-//   top: 5px;
-//   z-index: 1;
-//   opacity: 0.7;
-// `;

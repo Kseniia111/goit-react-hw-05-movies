@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { handleSearch } from 'services/SearchApi';
-import { SearchForm } from 'components/SearchForm/SearchForm';
+import SearchForm from 'components/SearchForm/SearchForm';
 import MoviesList from 'components/MoviesList/MoviesList';
 
 const Movies = () => {
