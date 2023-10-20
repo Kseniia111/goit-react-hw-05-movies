@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCast } from 'services/SearchApi';
-import { BASE_POSTER_URL, PLACEHOLDER } from 'services/constants';
+import { BASE_POSTER_URL } from 'services/constants';
 import { Wrapper, Item, List } from './Cast.styled';
+import placeholder from '../images/placeholder.png';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -32,7 +33,7 @@ const Cast = () => {
                   src={`${
                     profile_path
                       ? BASE_POSTER_URL + profile_path
-                      : PLACEHOLDER + '?text=' + original_name
+                      : `${placeholder}`
                   }`}
                   alt={original_name}
                 />

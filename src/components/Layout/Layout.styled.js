@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 //import background from '../images/background.jpeg';
-import background from '../images/background.jpg';
+import background from '../images/background2.jpg';
 export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;

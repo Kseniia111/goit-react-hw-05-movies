@@ -21,11 +21,26 @@ export const List = styled.ul`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin-bottom: 20px;
+  list-style-type: none;
 `;
 
 export const Item = styled.li`
-  margin-top: 20px;
+  min-width: 182px;
+  font-size: 14px;
+  padding: 6px;
+  max-width: min-content;
+  background-color: #de8e46;
+  border-radius: 14px;
+
+  :not(:last-child) {
+    margin-bottom: 6px;
+  }
+
   img {
-    border-radius: 5px;
+    max-width: 182px;
+    border-radius: 8px;
+  }
+  span {
+    color: #34495e;
   }
 `;
